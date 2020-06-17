@@ -27,5 +27,5 @@ Route::get('/', function () {
 // Route:group()は、ルーティングをグループ化して処理をまとめる。
 // ['middleware' => 'auth']とすることでログイン認証を確認される。
 Route::group(['middleware' => ['auth']], function() {
-  Route::resource('users', 'UsersController', ['only' => ['show', 'index']]);
+  Route::resource('users', 'UsersController', ['only' => ['show', 'index', 'edit', 'update']]);
 });
