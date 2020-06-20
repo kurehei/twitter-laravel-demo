@@ -26,6 +26,7 @@ Route::get('/', 'MicropostsController@index');
 // Route:group()は、ルーティングをグループ化して処理をまとめる。
 // ['middleware' => 'auth']とすることでログイン認証を確認される。
 Route::group(['middleware' => ['auth']], function () {
+  // Route::resource('controller名','コントローラ', ['only' => ['show', 'destroy', ex...]])
   Route::resource('users', 'UsersController', ['only' => ['show', 'index', 'edit', 'update']]);
-  Route::resource('micropost', 'MicropostsController', ['only' => 'store', 'destroy']);
+  Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy', 'edit', 'update']]);
 });

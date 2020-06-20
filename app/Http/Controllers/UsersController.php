@@ -20,9 +20,14 @@ class UsersController extends Controller
   public function show($id)
   {
     $user = User::find($id);
-    return view('users.show', [
-      'user' => $user
-    ]);
+    $microposts = $user->microposts()->take(10)->get();
+    $data = [
+      'user' => $user,
+      'microposts' => $microposts
+    ];
+    // ここの$thisは、UsersController自身をさす。つまり、UsersControlerはConrtrollerを継承しているため、Controllerで定義されているcount$thisで呼び出すことが可能である。
+    $data = $data + $this->count($user);
+    return view('users.show', $data);
   }
 
   public function edit(User $user)

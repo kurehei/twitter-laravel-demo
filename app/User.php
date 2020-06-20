@@ -28,7 +28,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function micropost()
+    public function microposts()
     {
         // リレーションの設定userに紐付くmicropostを取得できる。user->micropost()で取得出来る。
         return $this->hasMany(Micropost::class);

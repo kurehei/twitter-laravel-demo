@@ -8,9 +8,10 @@ class Micropost extends Model
 {
     protected $fillable = ["content", "user_id"];
 
-    public function user() {
+    public function user()
+    {
         //laravelでリレーションの設定mincopost->user()でmicropostに紐づくユーザの取得
-      return $this->bekongs_to(User::class);
+        return $this->belongsTo(User::class);
     }
     //
 }

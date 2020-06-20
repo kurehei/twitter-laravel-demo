@@ -14,9 +14,17 @@
           </div>
       </aside>
       <div class="col-sm-8">
-          @if (count($microposts) > 0)
-            @include('microposts.micropost',['microposts' => $microposts])
-          @endif
+        @if (Auth::id() == $user->id)
+        {!! Form::open(['route' => 'microposts.store']) !!}
+          <div class="form-group">
+            {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '2']) !!}
+            {!! Form::submit('送信', ['class' => 'btn btn-primary']) !!}
+          </div>
+        {!! Form::close() !!}
+        @endif
+        @if (count($microposts) > 0)
+            @include('microposts.microposts', [ 'microposts' => $microposts])
+        @endif
       </div>
   </div>
 
