@@ -19,13 +19,13 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 // 新規登録用のrooting
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'MicropostsController@index');
 
 // 認証用
 // Route:group()は、ルーティングをグループ化して処理をまとめる。
 // ['middleware' => 'auth']とすることでログイン認証を確認される。
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
   Route::resource('users', 'UsersController', ['only' => ['show', 'index', 'edit', 'update']]);
+  Route::resource('micropost', 'MicropostsController', ['only' => 'store', 'destroy']);
 });

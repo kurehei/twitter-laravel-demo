@@ -27,4 +27,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function micropost()
+    {
+        // リレーションの設定userに紐付くmicropostを取得できる。user->micropost()で取得出来る。
+        return $this->hasMany(Micropost::class);
+    }
 }
