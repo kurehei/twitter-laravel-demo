@@ -53,20 +53,22 @@ class UsersController extends Controller
 
     $data = [
       'user' => $user,
-      'followings' => $followings
+      'users' => $followings
     ];
 
-    $data += $this->counts($user);
-    return view('users');
+    $data += $this->count($user);
+    return view('users.followings', $data);
   }
   // フォロワーの数の取得
   public function followers($id)
   {
     $user = User::find($id);
-    $followings = $user->followers()->take(10)->get();
+    $followers = $user->followers()->take(10)->get();
     $data = [
       'user' => $user,
-      'followings' => $followings
+      'users' => $followers
     ];
+    $data += $this->count($user);
+    return view('users.followers', $data);
   }
 }

@@ -32,8 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::group(['prefix' => 'users/{id}'],function() {
     Route::post('follow', 'UserFollowController@store')->name('users.follow');
     Route::delete('unfollow', 'UserFollowController@destroy')->name('users.unfollow');
-    Route::get('followings', 'UserFollowController@followings')->name('users.followings');
-    Route::get('followers', 'UserFollowController@followers')->name('users.followers');
+    Route::get('followings', 'UsersController@followings')->name('users.followings');
+    Route::get('followers', 'UsersController@followers')->name('users.followers');
   });
   Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy', 'edit', 'update']]);
 });
