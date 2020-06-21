@@ -44,4 +44,26 @@ class UsersController extends Controller
     $user->update();
     return redirect('/');
   }
+  // フォローの数の取得
+
+  public function followings($id)
+  {
+    $user = User::find($id);
+    $followings = $user->followings()->take(10)->get();
+
+    $data = [
+      'user' => $user,
+      'followings' => $followings
+    ];
+  }
+  // フォロワーの数の取得
+  public function followers($id)
+  {
+    $user = User::find($id);
+    $followings = $user->followers()->take(10)->get();
+    $data = [
+      'user' => $user,
+      'followings' => $followings
+    ];
+  }
 }
