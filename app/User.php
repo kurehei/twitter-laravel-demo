@@ -47,7 +47,7 @@ class User extends Authenticatable
     public function follow($userId)
     {
         // followしているかどうかのチェック
-        $followCheck = $this->is_followings($userId);
+        $followCheck = $this->is_following($userId);
         // フォローしている人が自分かどうかのチェック
         $its_me = $this->id == $userId;
 
@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public function unfollow($userId)
     {
-        $followCheck = $this->is_followings($userId);
+        $followCheck = $this->is_following($userId);
         // フォローしている人が自分かどうかのチェック
         $its_me = $this->id == $userId;
 
@@ -74,7 +74,7 @@ class User extends Authenticatable
         }
     }
     // whereで、follow_idにすでに、idが存在しているかどうかのチェック
-    public function is_followings($userId)
+    public function is_following($userId)
     {
         return $this->followings()->where('follow_id', $userId)->exists();
     }

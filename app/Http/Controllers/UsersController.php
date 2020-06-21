@@ -55,6 +55,9 @@ class UsersController extends Controller
       'user' => $user,
       'followings' => $followings
     ];
+
+    $data += $this->counts($user);
+    return view('users');
   }
   // フォロワーの数の取得
   public function followers($id)

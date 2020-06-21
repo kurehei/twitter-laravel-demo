@@ -5,7 +5,7 @@
       <img  class="mr-2 rounded" src="{{ Gravatar::src($user->email, 50)}}" alt="">
       <div class="media-body">
         <div>
-          {{ $user->name }}
+          {!! link_to_route('users.show',$user->name, ['id' => $user->id]) !!}
         </div>
         <div>
 
