@@ -33,4 +33,49 @@ class User extends Authenticatable
         // リレーションの設定userに紐付くmicropostを取得できる。user->micropost()で取得出来る。
         return $this->hasMany(Micropost::class);
     }
+    // 中間テーブル多対多 belongsToMany()を使う。第一引数モデル、第二引数には中間テーブル、第三引数には中間テーブルの自分のID、第４テーブルには関係先のID
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
+    }
+
+    public function follow($userId)
+    {
+        // followしているかどうかのチェック
+        $followCheck = $this->is_followings($userId);
+        // フォローしている人が自分かどうかのチェック
+        $its_me = $this->id == $userId;
+
+        if ($followCheck || $its_me) {
+            return false;
+        } else {
+            // attach()は中間テーブル保存用のメソッド
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+
+    public function unfollow($userId)
+    {
+        $followCheck = $this->is_followings($userId);
+        // フォローしている人が自分かどうかのチェック
+        $its_me = $this->id == $userId;
+
+        if ($followCheck && !$its_me) {
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // whereで、follow_idにすでに、idが存在しているかどうかのチェック
+    public function is_followings($userId)
+    {
+        return $this->followings()->where('follow_id', $userId)->exists();
+    }
 }
