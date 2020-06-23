@@ -17,7 +17,7 @@ class MicropostsController extends Controller
 
         if (\Auth::check()) {
             $user = \Auth::user();
-            $microposts = $user->microposts()->take(10)->get();
+            $microposts = $user->timeline_microposts()->take(10)->get();
             $data = [
                 'user' => $user,
                 'microposts' => $microposts

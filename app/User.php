@@ -78,4 +78,13 @@ class User extends Authenticatable
     {
         return $this->followings()->where('follow_id', $userId)->exists();
     }
+
+    public function timeline_microposts()
+    {
+        // フォローしているユーザーのIDを抜き出してきて表示している
+        $follow_user_ids = $this->followings()->pluck('users.id')->toArray();
+        // micropostのユーザーIDの中で、フォローしているIDだけぬき出す。
+        // whrereINは、第一引数に指定からむ、第二引数に抜き出したい条件
+        return Micropost::whereIn('user_id', $follow_user_ids);
+    }
 }
