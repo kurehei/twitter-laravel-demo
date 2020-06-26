@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Micropost extends Model
 {
@@ -14,8 +15,13 @@ class Micropost extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function likes() {
+    public function likes()
+    {
         return $this->hasMany(Like::class);
     }
-    //
+    // 良いねする人がログインしているユーザーかどうかをチェックする
+    public function like_by()
+    {
+        return Like::where('user_id', Auth::user()->id)->first;
+    }
 }
