@@ -13,5 +13,9 @@ class Micropost extends Model
         //laravelでリレーションの設定mincopost->user()でmicropostに紐づくユーザの取得
         return $this->belongsTo(User::class);
     }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
     //
 }

@@ -87,4 +87,9 @@ class User extends Authenticatable
         // whrereINは、第一引数に指定からむ、第二引数に抜き出したい条件
         return Micropost::whereIn('user_id', $follow_user_ids);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

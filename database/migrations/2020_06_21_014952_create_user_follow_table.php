@@ -34,6 +34,7 @@ class CreateUserFollowTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('users');
         Schema::dropIfExists('user_follow');
     }
 }
