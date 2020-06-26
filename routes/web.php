@@ -29,11 +29,15 @@ Route::group(['middleware' => ['auth']], function () {
   // Route::resource('controller名','コントローラ', ['only' => ['show', 'destroy', ex...]])
   Route::resource('users', 'UsersController', ['only' => ['show', 'index', 'edit', 'update']]);
   // ユーザーのidをURLのパラメーターに含ませることができる
-  Route::group(['prefix' => 'users/{id}'],function() {
+  Route::group(['prefix' => 'users/{id}'], function () {
     Route::post('follow', 'UserFollowController@store')->name('users.follow');
     Route::delete('unfollow', 'UserFollowController@destroy')->name('users.unfollow');
     Route::get('followings', 'UsersController@followings')->name('users.followings');
     Route::get('followers', 'UsersController@followers')->name('users.followers');
   });
   Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy', 'edit', 'update']]);
+
+  // 良いね機能のルーティング
+  Route::post('microposts/{micropost}/likes', 'LikesController@store');
+  Route::delete('/posts/{post}/likes/{like}', 'LikesController@destroy');
 });
