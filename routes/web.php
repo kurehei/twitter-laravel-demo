@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('followings', 'UsersController@followings')->name('users.followings');
     Route::get('followers', 'UsersController@followers')->name('users.followers');
   });
-  Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy', 'edit', 'update']]);
+  Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy', 'edit', 'update', 'show']]);
 
   // 良いね機能のルーティング
   Route::post('microposts/{micropost}/likes', 'LikesController@store');

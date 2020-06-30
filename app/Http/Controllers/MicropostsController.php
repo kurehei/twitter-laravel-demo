@@ -27,6 +27,19 @@ class MicropostsController extends Controller
         return view('welcome', $data);
     }
 
+    public function show($id)
+    {
+        $micropost = Micropost::findOrFail($id);
+        // いいねされているかどうかのチェックする
+        $like = $micropost->likes()->where('user_id', \Auth::user()->id)->first();
+
+        $data = [
+            'micropost' => $micropost,
+            'like' => $like
+        ];
+        return view('microposts.show', $data);
+    }
+
     public function store(Request $request)
     {
         // requestから、ユーザーを引っ張ってきた

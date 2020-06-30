@@ -13,6 +13,9 @@ class Like extends Model
             'foreign_key' => 'post_id'
         ]
     ];
+    // $fillableを付けないと関連テーブルのモデルにデータを入れられない。
+    // 操作対象のモデルにfillableをつける　Eloquentモデルの設定上複数代入から守るため。
+    protected $fillable = ["micropost_id", "user_id"];
     //
     public function User()
     {

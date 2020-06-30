@@ -8,7 +8,7 @@
         </div>
         <!--- nl2brは改行のメソッド--->
         <div>
-          <p class="mb-0">{{ nl2br(e($micropost->content)) }}</p>
+          {!! link_to_route('microposts.show', $micropost->content, ['id' => $micropost->id]) !!}
         </div>
         <div>
           @if (Auth::id() == $micropost->user_id)
