@@ -14,7 +14,7 @@ class LikesController extends Controller
         Like::create(
             $array = [
                 'user_id' => \Auth::user()->id,
-                'post_id' => $micropostId
+                'micropost_id' => $micropostId
             ]
         );
         // findOrfailはモデルが見つからないときに例外を投げる
@@ -27,7 +27,7 @@ class LikesController extends Controller
     public function destroy($micropostId, $likeId)
     {
         $micropost = Micropost::findOrfail($micropostId);
-        $micropost->lile_by()->findOrfail($likeId)->delete();
+        $micropost->like_by()->findOrfail($likeId)->delete();
 
         return back();
     }

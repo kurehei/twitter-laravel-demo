@@ -38,6 +38,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy', 'edit', 'update', 'show']]);
 
   // 良いね機能のルーティング
-  Route::post('microposts/{micropost}/likes', 'LikesController@store');
-  Route::delete('/posts/{post}/likes/{like}', 'LikesController@destroy');
+  Route::post('microposts/{micropost}/likes', 'LikesController@store')->name('likes.store');
+  Route::delete('/posts/{post}/likes/{like}', 'LikesController@destroy')->name('likes.destroy');
+
+  ## コメント機能のルーティング
+  Route::post('microposts/{micropost}/comments', 'CommentsController@store')->name('comments.store');
+  Route::delete('microposts/{micropost}/comments', 'CommentsController@store')->name('comments.delete');
 });

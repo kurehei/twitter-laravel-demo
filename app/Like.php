@@ -3,27 +3,31 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use kanazaca\CounterCache\CounterCache;
+
 
 class Like extends Model
 {
+    use CounterCache;
     // CounterCashの記述
     public $counterCacheOptions = [
-        'Post' => [
-            'fields' => 'likes_count',
-            'foreign_key' => 'post_id'
+        'Micropost' => [
+            'field' => 'likes_count',
+            'foreign_key' => 'micropost_id'
         ]
     ];
     // $fillableを付けないと関連テーブルのモデルにデータを入れられない。
     // 操作対象のモデルにfillableをつける　Eloquentモデルの設定上複数代入から守るため。
+    // $guardは、複数代入を防ぐためのメソッド
     protected $fillable = ["micropost_id", "user_id"];
     //
-    public function User()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function Post()
+    public function micropost()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Micropost::class);
     }
 }

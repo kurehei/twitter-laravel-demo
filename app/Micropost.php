@@ -22,6 +22,11 @@ class Micropost extends Model
     // 良いねする人がログインしているユーザーかどうかをチェックする
     public function like_by()
     {
-        return Like::where('user_id', Auth::user()->id)->first;
+        return Like::where('user_id', \Auth::user()->id)->first();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
