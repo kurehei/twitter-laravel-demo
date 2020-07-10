@@ -32,9 +32,11 @@ class MicropostsController extends Controller
         $micropost = Micropost::findOrFail($id);
         // いいねされているかどうかのチェックする
         $like = $micropost->likes()->where('user_id', \Auth::user()->id)->first();
+        $comments = $micropost->comments()->get();
         $data = [
             'micropost' => $micropost,
-            'like' => $like
+            'like' => $like,
+            'comments' => $comments
         ];
         return view('microposts.show', $data);
     }

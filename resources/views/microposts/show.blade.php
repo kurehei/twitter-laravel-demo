@@ -40,9 +40,20 @@
       </div>
       {!! Form::submit('コメントする', ['class' => 'btn btn-primary']) !!}
     {!! Form::close() !!}
-    <ul class="list-unstyled">
-
-    </ul>
+    @foreach ( $comments as $comment)
+      <ul class="list-unstyled">
+        <img class="mr-2 rounded" src="{{ Gravatar::src($micropost->user->email, 50) }}" alt="">
+        <div class="media-body">
+          <div>
+            {!! link_to_route('users.show', $comment->user->name, ['id' => $comment->user->id]) !!}
+          </div>
+          <!--- nl2brは改行のメソッド--->
+          <div>
+            {{ $comment->content }}
+          </div>
+        </div>
+      </ul>
+    @endforeach
   </div>
 </div>
 @endsection
